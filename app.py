@@ -16,7 +16,6 @@ def index():
 @app.get('/movies')
 def list_all_movies():
     # TODO: Feature 1
-    movie_repository.create_movie("Dune 2", "Denis Villeneuve", 5)
     return render_template('list_all_movies.html', list_movies_active=True, dict=movie_repository.get_all_movies())
 
 
