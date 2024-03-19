@@ -28,14 +28,6 @@ def create_movies_form():
 def create_movie():
     # TODO: Feature 2
     # After creating the movie in the database, we redirect to the list all movies page
-    title = request.form.get('title')
-    genre = request.form.get('genre')
-    released_year = request.form.get('released_year')
-    rating = request.form.get('rating')
-
-    new_movie = Movie(title=title, genre=genre, released_year=released_year, rating=rating)
-    db.session.add(new_movie)
-    db.session.commit()
     return redirect('/movies')
 
 
