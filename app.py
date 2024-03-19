@@ -53,20 +53,25 @@ def update_movie(movie_id: int):
     # TODO: Feature 5
     # After updating the movie in the database, we redirect back to that single movie page
     title = request.form.get('title')
-    genre = request.form.get('genre')
-    released_year = request.form.get('released_year')
+    director = request.form.get('director')
+    rating = request.form.get('rating')
     
-    if not title or not genre or not released_year:
+    if not title or not director or not rating:
         abort(400, description="Missing required field")
+
+    if rating.is_digit():
+        rating = int(rating)
+        if not rating.is_digit():
+            abort(400, description="Missing required field")
+
 
     movie = movie_repository.get_movie_by_id(movie_id)
     if not movie:
         abort(404, description="Movie not found")
 
-    
     movie.title = title
-    movie.genre = genre
-    movie.released_year = released_year
+    movie.director = director
+    movie.rating = rating
     movie_repository.update_movie(movie)
     
     return redirect(f'/movies/{movie_id}')
