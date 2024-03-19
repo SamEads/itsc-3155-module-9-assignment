@@ -2,8 +2,54 @@
 
 {% block title %}Movie Rating App | All Movies{% endblock %}
 
+{% block styles %}
+<style>
+    .element-style {
+        font-weight: bold;
+        min-width: 150px;
+    }
+    .star-style {
+        background: linear-gradient(to right, darkorange, orange); /* Gradient from orange to yellow */
+            -webkit-background-clip: text; /* Apply background only to text */
+            background-clip: text; /* Apply background only to text */
+            color: transparent; /* Hide original text */
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 <h1 class="mb-5">All Movies</h1>
 <p class="mb-3">See our list of movie ratings below</p>
-<!-- TODO: Feature 1 -->
+{% if dict|length == 0 %}
+<div class="p-5">
+    <h1>There are no movies currently in our database :(</h1>
+</div>
+{% else %}
+<div class="p-5">
+    <table style="width: 80%;">
+        <thead style="font-size: 36px;">
+            <tr>
+                <th>Movie ID</th>
+                <th>Title</th>
+                <th>Director</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody style="font-size: 24px;">
+            {% for num, movie in dict.items() %}
+                <tr>
+                    <td class="element-style">{{movie.movie_id}}</td>
+                    <td class="element-style">{{movie.title}}</td>
+                    <td class="element-style">{{movie.director}}</td>
+                    <td>
+                        {% for _ in range(movie.rating) %}
+                            <span class="star-style">★</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
 {% endblock %}
