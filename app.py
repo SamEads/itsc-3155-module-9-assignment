@@ -47,7 +47,7 @@ def create_movie():
     if int(rating) < 1 or int(rating) > 5:
         return abort(400)
 
-    movie_repository.create_movie(title, director, rating)
+    movie_repository.create_movie(title, director, int(rating))
 
     return redirect('/movies')
 
