@@ -5,5 +5,31 @@
 {% block body %}
 <h1 class="mb-5">Search Movie Ratings</h1>
 <p class="mb-3">Search for a movie rating below</p>
-<!-- TODO: Feature 3 -->
+<!-- Feature 3 - Title Search -->
+
+<!-- search form -->
+<form action="/movies/search" method="GET">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter Title" name="title">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </div>
+</form>
+
+<!-- display results -->
+{% if match %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ match.title }}</h5>
+                    <p class="card-text">Director: {{ match.director }}</p>
+                    <p class="card-text">Rating: {{ match.rating }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>No matches found</p>
+{% endif %}
+
 {% endblock %}

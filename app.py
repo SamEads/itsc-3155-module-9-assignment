@@ -1,4 +1,4 @@
-from flask import Flask, abort, redirect, render_template, request
+from flask import Flask, abort, redirect, render_template
 
 from src.repositories.movie_repository import get_movie_repository
 
@@ -54,8 +54,10 @@ def create_movie():
 
 @app.get('/movies/search')
 def search_movies():
-    # TODO: Feature 3
-    return render_template('search_movies.html', search_active=True)
+    # Feature 3
+    title = request.args.get('title')   #take form data from the search_movies.html
+    match = movie_repository.get_movie_by_title(title)
+    return render_template('search_movies.html', search_active=True, title=title, match=match)
 
 
 @app.get('/movies/<int:movie_id>')
@@ -80,3 +82,5 @@ def update_movie(movie_id: int):
 def delete_movie(movie_id: int):
     # TODO: Feature 6
     pass
+
+app.run(debug=True)     # Run the application in debug mode
