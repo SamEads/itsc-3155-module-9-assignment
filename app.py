@@ -59,11 +59,10 @@ def update_movie(movie_id: int):
     if not title or not director or not rating:
         abort(400, description="Missing required field")
 
-    if rating.is_digit():
-        rating = int(rating)
-        if not rating.is_digit():
-            abort(400, description="Missing required field")
+    if not rating.is_digit():
+        abort(400, description="Missing required field")
 
+    rating = int(rating)
 
     movie = movie_repository.get_movie_by_id(movie_id)
     if not movie:

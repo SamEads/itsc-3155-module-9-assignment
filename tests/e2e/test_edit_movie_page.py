@@ -11,14 +11,14 @@ def test_edit_movie_page(test_app: FlaskClient):
    assert b'<h1>Edit Movie</h1>' in response.data
    data = {
         'title': 'The Godfather',
-        'director': 'Franis Capolla',
-        'rating': 5
+        'director': 'Franis Coppola',
+        'rating': '5'
     }
-   resonse = client.post('/movies/1', data=data, follow_redirects=True)
+   response = client.post('/movies/1', data=data, follow_redirects=True)
 
    assert response.status_code == 200
 
-   assert b"New Movie Title" in response.data
-   assert b"New Movie Genre" in response.data
-   assert b"2022" in response.data
+   assert b"The Godfather" in response.data
+   assert b"Francis Coppola" in response.data
+   assert b"5" in response.data
     

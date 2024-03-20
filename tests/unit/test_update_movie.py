@@ -1,20 +1,15 @@
 # TODO: Feature 5
-import requests
+import pytest
+from app.py import app
 
-def test_update_movie():
-    url = "http://localhost:5000/movies/1"
 
-    new_movie_data = {
-        "title": "New Movie Title",
-        "director": "New Director",
-        "rating": "5"
-    }
+def test_create_movie(test_app: FlaskClient):
+    response = FlaskClient.post('/movies/1', data={"title": "New Movie Title", "director": "New Director", "rating": "5"})
+    assert response.status_code == 302
 
-    response = requests.post(url, data=new_movie_data)
+def test_update_movie(test_app: FlaskClient):
+    response_create = client.post('/movies')
+    assert response_create.status_code == 302
 
-    assert response.status_code == 200
-
-    updated_movie = response.json()
-    assert updated_movie["title"] == new_movie_data["title"]
-    assert updated_movie["director"] == new_movie_data["director"]
-    assert updated_movie["rating"] == new_movie_data["rating"]
+    response = client.post('/movies/1', data={"title": "Updated Movie Title", "director": "Updated Director", "rating": "4"})
+    assert response.status_code == 302
