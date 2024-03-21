@@ -60,7 +60,7 @@ def update_movie(movie_id: int):
         abort(400, description="Missing required field")
 
     if not rating.isdigit():
-        abort(400, description="Missing required field")
+        abort(400, description="Rating must be a valid integer")
 
     rating = int(rating)
 
