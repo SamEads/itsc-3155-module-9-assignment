@@ -3,6 +3,21 @@
 {% block title %}Movie Rating App | Edit Movie{% endblock %}
 
 {% block body %}
-<h1 class="mb-5"></h1>
+<h1 class="mb-5">Edit Movie</h1>
 <!-- TODO: Feature 5 -->
+<form action="/movies/{{ movie_id }}" method="POST">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter movie title" required>
+    </div>
+    <div class="form-group">
+        <label for="director">Director</label>
+        <input type="text" class="form-control" id="director" name="director" placeholder="Enter movie director" required>
+    </div>
+    <div class="form-group">
+        <label for="rating">Rating</label>
+        <input type="number" min="1" max="5" class="form-control" id="rating" name="rating" placeholder="Enter rating" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
 {% endblock %}

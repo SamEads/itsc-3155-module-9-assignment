@@ -78,6 +78,35 @@ def get_edit_movies_page(movie_id: int):
 def update_movie(movie_id: int):
     # TODO: Feature 5
     # After updating the movie in the database, we redirect back to that single movie page
+    title = request.form.get('title')
+    director = request.form.get('director')
+    rating = request.form.get('rating')
+    
+    if not title:
+        abort(400, description="Title is required")
+    if not director:
+        abort(400, description="Director is required")
+    if not rating:
+        abort(400, description="Rating is required")
+
+    if not rating.isdigit():
+        abort(400, description="Invalid rating format")
+
+    rating = int(rating)
+
+    movie = movie_repository.get_movie_by_id(movie_id)
+    if not movie:
+        abort(404, description="Movie not found")
+
+    duplicate_movie = movie_repository.get_movie_by_title(title)
+    if duplicate_movie and duplicate_movie.id != movie_id:
+        abort(409, description="Duplicate movie title")
+
+    movie.title = title
+    movie.director = director
+    movie.rating = rating
+    movie_repository.update_movie(movie)
+    
     return redirect(f'/movies/{movie_id}')
 
 
