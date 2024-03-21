@@ -56,17 +56,25 @@ def update_movie(movie_id: int):
     director = request.form.get('director')
     rating = request.form.get('rating')
     
-    if not title or not director or not rating:
+    if not title:
         abort(400, description="Missing required field")
+    if not director:
+        abort(400, description="Director is required")
+    if not rating:
+        abort(400, description="Rating is required")
 
     if not rating.isdigit():
-        abort(400, description="Rating must be a valid integer")
+        abort(400, description="Invalid rating format")
 
     rating = int(rating)
 
     movie = movie_repository.get_movie_by_id(movie_id)
     if not movie:
         abort(404, description="Movie not found")
+
+    duplicate_movie = movie_repository.get_movie_by_title(title)
+    if duplicate_movie and duplicate_movie.id != movie_id:
+        abort(409, description="Duplicate movie title")
 
     movie.title = title
     movie.director = director
