@@ -1,8 +1,9 @@
 # TODO: Feature 5
 import pytest
-from app.py import app
-from app.py.src.models import Movie
-from app.py.src.repositories.movie_repository import get_movie_repository
+from flask import request
+from app import app
+from src.models.movie import Movie
+from src.repositories.movie_repository import get_movie_repository
 from flask.testing import FlaskClient
 
 movie_repository = get_movie_repository()
@@ -16,7 +17,7 @@ def test_edit_movie_page(test_app: FlaskClient):
         'director': 'Franis Coppola',
         'rating': '5'
     }
-   response = client.post('/movies/1', data=data, follow_redirects=True)
+   response = test_app.post('/movies/1', data=data, follow_redirects=True)
 
    assert response.status_code == 200
 

@@ -1,6 +1,7 @@
 # TODO: Feature 5
 import pytest
-from app.py import app
+from flask import request
+from app import app
 from flask.testing import FlaskClient
 
 

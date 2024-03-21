@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, request, abort
 
 from src.repositories.movie_repository import get_movie_repository
 
@@ -59,7 +59,7 @@ def update_movie(movie_id: int):
     if not title or not director or not rating:
         abort(400, description="Missing required field")
 
-    if not rating.is_digit():
+    if not rating.isdigit():
         abort(400, description="Missing required field")
 
     rating = int(rating)
