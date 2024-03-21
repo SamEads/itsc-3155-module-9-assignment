@@ -10,10 +10,6 @@ from app import movie_repository
 
 movie_repository = get_movie_repository()
 
-@pytest.fixture
-def movie_repository():
-    return MovieRepository
-
 def test_edit_movie_page(test_app: FlaskClient):
    response = test_app.get('/movies/1/edit')
    assert response.status_code == 200
