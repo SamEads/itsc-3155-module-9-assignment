@@ -49,10 +49,10 @@ def test_duplicate_movie_title(test_app: FlaskClient, movie_repository):
    
 
 def test_edit_non_existent_movie(test_app: FlaskClient):
-    movie = movie_repository.get(999)
+    movie = movie_repository.get_movie_by_id(999)
     if movie:
         movie_repository.delete(999)
-        
+
     response = test_app.get('/movies/999', data={'title': 'New Title', 'director': 'New Director', 'rating': '5'})
     assert response.status_code == 404
     
