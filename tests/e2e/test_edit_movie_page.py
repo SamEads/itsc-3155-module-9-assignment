@@ -5,7 +5,7 @@ from app import app
 from src.models.movie import Movie
 from src.repositories.movie_repository import get_movie_repository
 from flask.testing import FlaskClient
-from app import MovieRepository
+from app import movie_repository
 
 
 movie_repository = get_movie_repository()
