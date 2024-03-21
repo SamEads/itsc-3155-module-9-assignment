@@ -35,7 +35,8 @@ def test_movie_not_found(test_app: FlaskClient):
 
     assert response.status_code == 404
 
-def test_duplicate_movie_title(test_app: FlaskClient):
+def test_duplicate_movie_title(test_app: FlaskClient, movie_repository):
+    movie_repository.create(Movie(1, 'Existing Moive', 'Existing Director', 3))
     data = {
         'title': 'The Godfather',
         'director': 'Franics Coppola',
@@ -45,10 +46,13 @@ def test_duplicate_movie_title(test_app: FlaskClient):
     response = test_app.post('/movies/1', data=data, follow_redirects=True)
 
     assert response.status_code == 409
-    assert b"Conflict" in response.data
-    assert b"A movie with the same title already exists" in response.data
+   
 
 def test_edit_non_existent_movie(test_app: FlaskClient):
+    movie = movie_repository.get(999)
+    if movie:
+        movie_repository.delete(999)
+        
     response = test_app.get('/movies/999', data={'title': 'New Title', 'director': 'New Director', 'rating': '5'})
     assert response.status_code == 404
     

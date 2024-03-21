@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, abort
+from flask import Flask, abort, redirect, render_template, request
 
 from src.repositories.movie_repository import get_movie_repository
 
