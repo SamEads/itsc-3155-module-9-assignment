@@ -57,7 +57,7 @@ def update_movie(movie_id: int):
     rating = request.form.get('rating')
     
     if not title:
-        abort(400, description="Missing required field")
+        abort(400, description="Title is required")
     if not director:
         abort(400, description="Director is required")
     if not rating:
